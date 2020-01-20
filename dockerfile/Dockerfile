@@ -24,3 +24,5 @@ RUN echo "-Dhttp.proxyHost=${PROXY_HOST}" >> ${SBT_HOME}/conf/sbtopts \
  && echo "-Dhttps.proxyPassword=${PROXY_PASSWORD}" >> ${SBT_HOME}/conf/sbtopts
 
 ENV PATH ${PATH}:${SBT_HOME}/bin
+
+WORKDIR /root/scala
