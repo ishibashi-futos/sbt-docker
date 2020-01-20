@@ -1,5 +1,9 @@
 FROM adoptopenjdk/openjdk8:alpine
 
+ENV SBT_HOME /usr/lib/sbt
+ADD assets/sbt-1.3.5.tgz /usr/lib
+
+# Comment out if no proxy is needed.
 ENV PROXY_HOST proxy.host.com
 ENV PROXY_PORT 8080
 ENV PROXY_USERNAME username
@@ -7,11 +11,9 @@ ENV PROXY_PASSWORD password
 ENV HTTP_PROXY http://${PROXY_USERNAME}:${PROXY_PASSWORD}@${PROXY_HOST}:${PROXY_PORT}
 ENV HTTPS_PROXY http://${PROXY_USERNAME}:${PROXY_PASSWORD}@${PROXY_HOST}:${PROXY_PORT}
 
-ENV SBT_HOME /usr/lib/sbt
-ADD assets/sbt-1.3.5.tgz /usr/lib
-
 RUN apk add --no-cache bash
 
+# Comment out if no proxy is needed.
 RUN echo "-Dhttp.proxyHost=${PROXY_HOST}" >> ${SBT_HOME}/conf/sbtopts \
  && echo "-Dhttp.proxyPort=${PROXY_PORT}" >> ${SBT_HOME}/conf/sbtopts \
  && echo "-Dhttp.proxyUser=${PROXY_USERNAME}" >> ${SBT_HOME}/conf/sbtopts \
